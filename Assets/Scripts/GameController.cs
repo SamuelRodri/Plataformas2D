@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameController : MonoBehaviour
 {
+    private static int score = 0;
+
     [SerializeField] private Player player;
 
     [Header("Door Configuration")]
@@ -18,6 +21,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(score);
         Transform actualDoorPoint = doorPoints[Random.Range(0, doorPoints.Length)];
         var door = Instantiate(doorPrefab, actualDoorPoint.position, Quaternion.identity);
 
@@ -29,6 +33,7 @@ public class GameController : MonoBehaviour
 
     private void RestartLevel()
     {
+        score += 100;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
