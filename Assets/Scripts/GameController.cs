@@ -18,10 +18,14 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform[] keyPoints;
     [SerializeField] private Key keyPrefab;
 
+    [Header("Others")]
+    [SerializeField] private UIController uiController;
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(score);
+        uiController.UpdateScore(score);
+
         Transform actualDoorPoint = doorPoints[Random.Range(0, doorPoints.Length)];
         var door = Instantiate(doorPrefab, actualDoorPoint.position, Quaternion.identity);
 
