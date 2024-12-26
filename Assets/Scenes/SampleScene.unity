@@ -11718,6 +11718,7 @@ MonoBehaviour:
   jumpable:
     serializedVersion: 2
     m_Bits: 256
+  repulseForce: 20
   attackPoint: {fileID: 719492143}
   attackRadius: 0.8
   attackAmount: 20

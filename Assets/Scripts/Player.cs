@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float groundDetectionDistance;
     [SerializeField] private LayerMask jumpable;
+    [SerializeField] private float repulseForce;
 
     [Header("Attack System")]
     [SerializeField] private Transform attackPoint;
@@ -120,9 +121,18 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawSphere(attackPoint.position, attackRadius);
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            TakeDamage(0.000001f);
+        }
+    }
+
     public void TakeDamage(float damageAmount)
     {
+        //rb.AddForce(-transform.right * repulseForce, ForceMode2D.Impulse);
         liveSystem.TakeDamage(damageAmount);
         anim.SetTrigger("hit");
     }
