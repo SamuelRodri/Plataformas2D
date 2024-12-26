@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(LivesSystem))]
 public class Player : MonoBehaviour
 {
     [Header("Movement System")]
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
 
     private Animator anim;
     private Rigidbody2D rb;
+    private LivesSystem liveSystem;
     private float inputH;
     private float currentY;
 
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        liveSystem = GetComponent<LivesSystem>();
     }
 
     // Update is called once per frame
@@ -117,9 +120,10 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawSphere(attackPoint.position, attackRadius);
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    anim.SetBool("falling", false);
-    //}
+    
+    public void TakeDamage(float damageAmount)
+    {
+        liveSystem.TakeDamage(damageAmount);
+        anim.SetTrigger("hit");
+    }
 }

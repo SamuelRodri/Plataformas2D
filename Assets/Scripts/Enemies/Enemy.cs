@@ -2,22 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skeleton : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] private Transform[] wayPoints;
-    [SerializeField] private float patrolSpeed;
-    [SerializeField] private float attackDamage;
+    [SerializeField] protected Transform[] wayPoints;
+    [SerializeField] protected float patrolSpeed;
+    [SerializeField] protected float attackDamage;
 
-    private Vector3 actualDestination;
-    private int actualIndex = 0;
+    protected Vector3 actualDestination;
+    protected int actualIndex = 0;
 
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         actualDestination = wayPoints[actualIndex].position;
         LookAtDestination();
         StartCoroutine(Patrol());
     }
-    IEnumerator Patrol()
+
+    protected IEnumerator Patrol()
     {
         while (true)
         {
@@ -31,14 +33,7 @@ public class Skeleton : MonoBehaviour
         }
     }
 
-    private void SetNewDestination()
-    {
-        actualIndex = ++actualIndex % wayPoints.Length;
-        actualDestination = wayPoints[actualIndex].position;
-        LookAtDestination();
-    }
-
-    private void LookAtDestination()
+    protected void LookAtDestination()
     {
         if (actualDestination.x > transform.position.x)
         {
@@ -50,6 +45,13 @@ public class Skeleton : MonoBehaviour
         }
     }
 
+    private void SetNewDestination()
+    {
+        actualIndex = ++actualIndex % wayPoints.Length;
+        actualDestination = wayPoints[actualIndex].position;
+        LookAtDestination();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("DetectionPlayer"))
@@ -58,8 +60,9 @@ public class Skeleton : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("PlayerHitBox"))
         {
-            LivesSystem livesSystem = collision.GetComponent<LivesSystem>();
-            livesSystem.TakeDamage(attackDamage);
+            Attack(collision.GetComponent<Player>());
         }
     }
+
+    protected abstract void Attack(Player player);
 }
