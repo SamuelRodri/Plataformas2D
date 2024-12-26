@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     private float inputH;
     private float currentY;
 
+    private bool hasKey = false;
     private bool nearDoor = false;
     private Door door;
 
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && nearDoor)
+        if (Input.GetKeyDown(KeyCode.E) && nearDoor && hasKey)
         {
             door.Open();
         }
@@ -151,6 +152,11 @@ public class Player : MonoBehaviour
         {
             nearDoor = true;
             door = collision.GetComponent<Door>();
+        }
+        else if (collision.CompareTag("Key"))
+        {
+            Destroy(collision.gameObject);
+            hasKey = true;
         }
     }
 

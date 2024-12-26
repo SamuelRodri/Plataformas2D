@@ -21,7 +21,6 @@ public class Door : MonoBehaviour
 
     public void OpenAnimationEnded()
     {
-        Debug.Log("hola");
         OnDoorOpen?.Invoke();
     }
 }
