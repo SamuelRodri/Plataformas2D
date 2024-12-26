@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,19 +32,29 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Fall();
+
         Movement();
 
         Jump();
 
         ThrowAttack();
+    }
 
-        //if(transform.position.y >= currentY)
-        //{
-        //    anim.SetBool("falling", true);
-        //}
+    private void Fall()
+    {
+        bool inGround = InGround();
 
-        //currentY = transform.position.y;
+        if (transform.position.y >= currentY && !inGround)
+        {
+            anim.SetBool("falling", true);
+        }
+        else if (inGround)
+        {
+            anim.SetBool("falling", false);
+        }
 
+        currentY = transform.position.y;
     }
 
     private void ThrowAttack()
