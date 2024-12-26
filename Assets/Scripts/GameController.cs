@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] private Player player;
+
     [Header("Door Configuration")]
     [SerializeField] private Transform[] doorPoints;
     [SerializeField] private Door doorPrefab;
@@ -16,9 +19,16 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Transform actualDoorPoint = doorPoints[Random.Range(0, doorPoints.Length)];
-        Instantiate(doorPrefab, actualDoorPoint.position, Quaternion.identity);
+        var door = Instantiate(doorPrefab, actualDoorPoint.position, Quaternion.identity);
+
+        door.OnDoorOpen += RestartLevel;
 
         Transform actualKeyPoint = keyPoints[Random.Range(0, keyPoints.Length)];
-        Instantiate(keyPrefab, actualKeyPoint.position, Quaternion.identity);
+        var key = Instantiate(keyPrefab, actualKeyPoint.position, Quaternion.identity);
+    }
+
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

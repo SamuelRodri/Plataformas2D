@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     private float inputH;
     private float currentY;
 
+    private bool nearDoor = false;
+    private Door door;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,6 +39,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E) && nearDoor)
+        {
+            door.Open();
+        }
+
         Fall();
 
         Movement();
@@ -135,5 +143,22 @@ public class Player : MonoBehaviour
         //rb.AddForce(-transform.right * repulseForce, ForceMode2D.Impulse);
         liveSystem.TakeDamage(damageAmount);
         anim.SetTrigger("hit");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Door"))
+        {
+            nearDoor = true;
+            door = collision.GetComponent<Door>();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Door"))
+        {
+            nearDoor = false;
+        }
     }
 }
