@@ -7,6 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Action OnDie;
+    public Action OnGetKey;
 
     [Header("Movement System")]
     [SerializeField] private Transform feet;
@@ -185,6 +186,7 @@ public class Player : MonoBehaviour
         {
             Destroy(collision.gameObject);
             hasKey = true;
+            OnGetKey?.Invoke();
         }
     }
 

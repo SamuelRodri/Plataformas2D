@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
         var key = Instantiate(keyPrefab, actualKeyPoint.position, Quaternion.identity);
 
         player.OnDie += GameOver;
+        player.OnGetKey += uiController.ShowKeyUI;
     }
 
     private void RestartLevel()
