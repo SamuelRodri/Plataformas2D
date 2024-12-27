@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(LivesSystem), typeof(Animator))]
 public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] protected Transform[] wayPoints;
@@ -11,10 +12,20 @@ public abstract class Enemy : MonoBehaviour
     protected Vector3 actualDestination;
     protected int actualIndex = 0;
 
+    protected LivesSystem livesSystem;
+    protected Animator animator;
+
+    private void Awake()
+    {
+        livesSystem = GetComponent<LivesSystem>();
+        livesSystem.OnDie += Die;
+        animator = GetComponent<Animator>();
+        actualDestination = wayPoints[actualIndex].position;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        actualDestination = wayPoints[actualIndex].position;
         LookAtDestination();
         StartCoroutine(Patrol());
     }
@@ -45,6 +56,9 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    protected void TakeDamage(float damageAmount)
+        => livesSystem.TakeDamage(damageAmount);
+
     private void SetNewDestination()
     {
         actualIndex = ++actualIndex % wayPoints.Length;
@@ -65,4 +79,10 @@ public abstract class Enemy : MonoBehaviour
     }
 
     protected abstract void Attack(Player player);
+    protected abstract void Die();
+    public abstract void Hit(float amountDammage);
+
+    // Call by animation event
+    protected void EndDeadAnimation()
+        => Destroy(gameObject);
 }

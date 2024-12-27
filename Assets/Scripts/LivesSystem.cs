@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class LivesSystem : MonoBehaviour
 {
+    public Action OnDie;
+
     [SerializeField] private float lives;
 
     public void TakeDamage(float damageAmount)
@@ -13,7 +15,7 @@ public class LivesSystem : MonoBehaviour
 
         if (lives <= 0)
         {
-            Destroy(gameObject);
+            OnDie?.Invoke();
         }
     }
 }
