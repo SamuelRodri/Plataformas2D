@@ -17,6 +17,7 @@ public class Skeleton : Enemy
 
     protected override void Die()
     {
+        actualPatrolSpeed = 0;
         animator.SetTrigger("die");
     }
 }

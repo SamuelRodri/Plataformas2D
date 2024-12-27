@@ -11,6 +11,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected Vector3 actualDestination;
     protected int actualIndex = 0;
+    protected float actualPatrolSpeed;
 
     protected LivesSystem livesSystem;
     protected Animator animator;
@@ -21,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
         livesSystem.OnDie += Die;
         animator = GetComponent<Animator>();
         actualDestination = wayPoints[actualIndex].position;
+        actualPatrolSpeed = patrolSpeed;
     }
 
     // Start is called before the first frame update
@@ -36,7 +38,7 @@ public abstract class Enemy : MonoBehaviour
         {
             while (transform.position != actualDestination)
             {
-                transform.position = Vector3.MoveTowards(transform.position, actualDestination, patrolSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, actualDestination, actualPatrolSpeed * Time.deltaTime);
                 yield return null;
             }
 
