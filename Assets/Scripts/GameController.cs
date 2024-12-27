@@ -33,11 +33,18 @@ public class GameController : MonoBehaviour
 
         Transform actualKeyPoint = keyPoints[Random.Range(0, keyPoints.Length)];
         var key = Instantiate(keyPrefab, actualKeyPoint.position, Quaternion.identity);
+
+        player.OnDie += GameOver;
     }
 
     private void RestartLevel()
     {
         score += 100;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void GameOver()
+    {
+        uiController.ShowGameOver(score);
     }
 }

@@ -6,7 +6,15 @@ using UnityEngine;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private TMP_Text highScore;
 
     public void UpdateScore(int score)
         => scoreText.text = $"Score: {score}";
+
+    public void ShowGameOver(int score)
+    {
+        highScore.text = $"High Score: {score}";
+        gameOverPanel.SetActive(true);
+    }
 }

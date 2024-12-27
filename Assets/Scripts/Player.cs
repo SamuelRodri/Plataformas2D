@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(LivesSystem))]
 public class Player : MonoBehaviour
 {
+    public Action OnDie;
+
     [Header("Movement System")]
     [SerializeField] private Transform feet;
     [SerializeField] private float movementSpeed;
@@ -148,6 +150,8 @@ public class Player : MonoBehaviour
         {
             script.enabled = false;
         }
+
+        OnDie?.Invoke();
     }
 
     private void OnDrawGizmos()
