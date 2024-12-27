@@ -31,17 +31,21 @@ public class Player : MonoBehaviour
     private Door door;
 
     private bool hasJump = false;
+    private bool hasDie = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         liveSystem = GetComponent<LivesSystem>();
+        liveSystem.OnDie += Die;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (hasDie) return;
+
         hasJump = !InGround();
 
         Jump();
@@ -129,6 +133,20 @@ public class Player : MonoBehaviour
         else
         {
             anim.SetBool("running", false);
+        }
+    }
+
+    private void Die()
+    {
+        hasDie = true;
+        rb.velocity = Vector3.zero;
+        anim.SetTrigger("die");
+
+        if (rb != null) rb.simulated = false; 
+
+        foreach (var script in GetComponents<MonoBehaviour>())
+        {
+            script.enabled = false;
         }
     }
 

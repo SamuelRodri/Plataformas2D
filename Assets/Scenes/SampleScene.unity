@@ -12743,7 +12743,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 869453691340726144, guid: acae9d4ceab9fc042af28cb6f7a42445, type: 3}
       propertyPath: patrolSpeed
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 869453691340726144, guid: acae9d4ceab9fc042af28cb6f7a42445, type: 3}
       propertyPath: wayPoints.Array.size
