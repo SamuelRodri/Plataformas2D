@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Skeleton : Enemy
 {
-    public override void Hit(float amountDammage)
+    public override void Hit(float damageAmount)
     {
-        throw new System.NotImplementedException();
+        TakeDamage(damageAmount);
+        animator.SetTrigger("hit");
     }
 
     protected override void Attack(Player player)
@@ -16,6 +17,6 @@ public class Skeleton : Enemy
 
     protected override void Die()
     {
-        throw new System.NotImplementedException();
+        animator.SetTrigger("die");
     }
 }
