@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
     private bool nearDoor = false;
     private Door door;
 
+    private bool hasJump = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -40,6 +42,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        hasJump = !InGround();
+
+        Jump();
+
         if (Input.GetKeyDown(KeyCode.E) && nearDoor && hasKey)
         {
             door.Open();
@@ -48,8 +54,6 @@ public class Player : MonoBehaviour
         Fall();
 
         Movement();
-
-        Jump();
 
         ThrowAttack();
     }
@@ -92,10 +96,11 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && InGround())
+        if (Input.GetKeyDown(KeyCode.Space) && !hasJump)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             anim.SetTrigger("jump");
+            hasJump = true;
         }
     }
 
