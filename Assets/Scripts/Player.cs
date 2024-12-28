@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float attackAmount;
     [SerializeField] private LayerMask damageable;
 
+    [Header("Others")]
+    [SerializeField] private float trapsDamage;
+
     private Animator anim;
     private Rigidbody2D rb;
     private LivesSystem liveSystem;
@@ -145,7 +148,7 @@ public class Player : MonoBehaviour
         rb.velocity = Vector3.zero;
         anim.SetTrigger("die");
 
-        if (rb != null) rb.simulated = false; 
+        if (rb != null) rb.simulated = false;
 
         foreach (var script in GetComponents<MonoBehaviour>())
         {
@@ -187,6 +190,12 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
             hasKey = true;
             OnGetKey?.Invoke();
+        }
+        else if (collision.CompareTag("Traps"))
+        {
+            anim.SetTrigger("hit");
+            rb.AddForce(transform.up * repulseForce, ForceMode2D.Impulse);
+            liveSystem.TakeDamage(trapsDamage);
         }
     }
 
