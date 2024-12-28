@@ -12,6 +12,7 @@ public class Skeleton : Enemy
 
     protected override void Attack(Player player)
     {
+        animator.SetTrigger("attack");
         player.TakeDamage(attackDamage);
     }
 
