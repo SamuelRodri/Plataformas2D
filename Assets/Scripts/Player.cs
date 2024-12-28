@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask jumpable;
     [SerializeField] private float repulseForceWhenVertical;
     [SerializeField] private float repulseForceWhenHorizontal;
+    [SerializeField] private float yLimit;
 
     [Header("Attack System")]
     [SerializeField] private Transform attackPoint;
@@ -40,6 +41,8 @@ public class Player : MonoBehaviour
     private bool hasJump = false;
     private bool hasDie = false;
 
+    private Vector2 positionBeforeFall;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,6 +55,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (hasDie) return;
+
+        if (transform.position.y <= yLimit)
+        {
+            DieForFall();
+        }
 
         ThrowAttack();
 
@@ -67,13 +75,23 @@ public class Player : MonoBehaviour
         Fall();
 
         Movement();
+
+        if (InGround())
+        {
+            positionBeforeFall = transform.position;
+        }
+    }
+
+    private void DieForFall()
+    {
+        transform.position = positionBeforeFall;
     }
 
     public void FallInTrap()
     {
         anim.SetTrigger("hit");
-        
-        if(Convert.ToInt32(rb.velocity.y) != 0)
+
+        if (Convert.ToInt32(rb.velocity.y) != 0)
         {
             rb.AddForce(Vector3.up * repulseForceWhenVertical, ForceMode2D.Impulse);
         }

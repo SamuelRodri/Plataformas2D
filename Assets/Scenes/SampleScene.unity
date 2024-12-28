@@ -3119,7 +3119,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.83, y: 10.21, z: -10}
+  m_LocalPosition: {x: -6.55, y: -0.9400002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52561,7 +52561,6 @@ GameObject:
   - component: {fileID: 1705028534}
   - component: {fileID: 1705028537}
   - component: {fileID: 1705028538}
-  - component: {fileID: 1705028541}
   m_Layer: 6
   m_Name: Player
   m_TagString: PlayerHitBox
@@ -52651,7 +52650,7 @@ Transform:
   m_GameObject: {fileID: 1705028533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.83, y: 10.21, z: 0}
+  m_LocalPosition: {x: -6.55, y: -0.94, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -52743,6 +52742,7 @@ MonoBehaviour:
     m_Bits: 256
   repulseForceWhenVertical: 15
   repulseForceWhenHorizontal: 8
+  yLimit: -12
   attackPoint: {fileID: 719492143}
   attackRadius: 0.8
   attackAmount: 20
@@ -52763,19 +52763,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 100
---- !u!114 &1705028541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705028533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82253f274eec0864a84546c55620867f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  yLimit: 0
 --- !u!1 &1712458079
 GameObject:
   m_ObjectHideFlags: 0
@@ -53809,7 +53796,7 @@ Transform:
   m_GameObject: {fileID: 1999392096}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.83, y: 10.21, z: -10}
+  m_LocalPosition: {x: -6.55, y: -0.9400002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
