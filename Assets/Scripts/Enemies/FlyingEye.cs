@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlyingEye : Enemy
 {
-    public override void Hit(float damageAmount)
+    public override void Hit(float damageAmount, Vector2 direction)
     {
         TakeDamage(damageAmount);
         animator.SetTrigger("hit");

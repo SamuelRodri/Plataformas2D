@@ -8,21 +8,25 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Transform[] wayPoints;
     [SerializeField] protected float patrolSpeed;
     [SerializeField] protected float attackDamage;
+    [SerializeField] protected float repulseForce;
 
     protected Vector3 actualDestination;
     protected int actualIndex = 0;
     protected float actualPatrolSpeed;
+    protected bool hitted = false;
 
     protected LivesSystem livesSystem;
     protected Animator animator;
+    protected Rigidbody2D rb;
 
     private void Awake()
     {
         livesSystem = GetComponent<LivesSystem>();
         livesSystem.OnDie += Die;
         animator = GetComponent<Animator>();
-        //actualDestination = wayPoints[actualIndex].position;
-        //actualPatrolSpeed = patrolSpeed;
+        rb = GetComponent<Rigidbody2D>();
+        actualDestination = wayPoints[actualIndex].position;
+        actualPatrolSpeed = patrolSpeed;
     }
 
     // Start is called before the first frame update
@@ -38,6 +42,7 @@ public abstract class Enemy : MonoBehaviour
         {
             while (transform.position != actualDestination)
             {
+                if (hitted) continue;
                 transform.position = Vector3.MoveTowards(transform.position, actualDestination, actualPatrolSpeed * Time.deltaTime);
                 yield return null;
             }
@@ -82,7 +87,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected abstract void Attack(Player player);
     protected abstract void Die();
-    public abstract void Hit(float amountDammage);
+    public abstract void Hit(float amountDammage, Vector2 direction);
 
     // Call by animation event
     protected void EndDeadAnimation()

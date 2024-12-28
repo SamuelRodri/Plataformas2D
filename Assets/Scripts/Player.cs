@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
         foreach (Collider2D collider in touchedColliders)
         {
             Enemy enemy = collider.GetComponent<Enemy>();
-            enemy.Hit(attackAmount);
+            enemy.Hit(attackAmount, transform.right);
         }
     }
 
