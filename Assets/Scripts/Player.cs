@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float groundDetectionDistance;
     [SerializeField] private LayerMask jumpable;
-    [SerializeField] private float repulseForce;
+    [SerializeField] private float repulseForceWhenVertical;
+    [SerializeField] private float repulseForceWhenHorizontal;
 
     [Header("Attack System")]
     [SerializeField] private Transform attackPoint;
@@ -66,6 +67,22 @@ public class Player : MonoBehaviour
         Fall();
 
         Movement();
+    }
+
+    public void FallInTrap()
+    {
+        anim.SetTrigger("hit");
+        
+        if(Convert.ToInt32(rb.velocity.y) != 0)
+        {
+            rb.AddForce(Vector3.up * repulseForceWhenVertical, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb.AddForce(Vector3.up * repulseForceWhenHorizontal, ForceMode2D.Impulse);
+        }
+
+        liveSystem.TakeDamage(trapsDamage);
     }
 
     private void Fall()
@@ -190,12 +207,6 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
             hasKey = true;
             OnGetKey?.Invoke();
-        }
-        else if (collision.CompareTag("Traps"))
-        {
-            anim.SetTrigger("hit");
-            rb.AddForce(transform.up * repulseForce, ForceMode2D.Impulse);
-            liveSystem.TakeDamage(trapsDamage);
         }
     }
 

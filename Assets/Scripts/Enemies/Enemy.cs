@@ -21,8 +21,8 @@ public abstract class Enemy : MonoBehaviour
         livesSystem = GetComponent<LivesSystem>();
         livesSystem.OnDie += Die;
         animator = GetComponent<Animator>();
-        actualDestination = wayPoints[actualIndex].position;
-        actualPatrolSpeed = patrolSpeed;
+        //actualDestination = wayPoints[actualIndex].position;
+        //actualPatrolSpeed = patrolSpeed;
     }
 
     // Start is called before the first frame update
