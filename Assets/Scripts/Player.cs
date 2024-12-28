@@ -49,6 +49,8 @@ public class Player : MonoBehaviour
     {
         if (hasDie) return;
 
+        ThrowAttack();
+
         hasJump = !InGround();
 
         Jump();
@@ -61,8 +63,6 @@ public class Player : MonoBehaviour
         Fall();
 
         Movement();
-
-        ThrowAttack();
     }
 
     private void Fall()
