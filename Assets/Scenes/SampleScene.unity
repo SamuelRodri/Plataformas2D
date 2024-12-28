@@ -54535,6 +54535,10 @@ PrefabInstance:
       value: Skeleton
       objectReference: {fileID: 0}
     - target: {fileID: 8788028290746253600, guid: acae9d4ceab9fc042af28cb6f7a42445, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 5c9a21ed4f0fe324590a25c58b357765, type: 2}
+    - target: {fileID: 8788028290746253600, guid: acae9d4ceab9fc042af28cb6f7a42445, type: 3}
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}

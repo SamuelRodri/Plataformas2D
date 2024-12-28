@@ -13,7 +13,6 @@ public abstract class Enemy : MonoBehaviour
     protected Vector3 actualDestination;
     protected int actualIndex = 0;
     protected float actualPatrolSpeed;
-    protected bool hitted = false;
 
     protected LivesSystem livesSystem;
     protected Animator animator;
@@ -22,7 +21,6 @@ public abstract class Enemy : MonoBehaviour
     private void Awake()
     {
         livesSystem = GetComponent<LivesSystem>();
-        livesSystem.OnDie += Die;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         actualDestination = wayPoints[actualIndex].position;
@@ -42,7 +40,6 @@ public abstract class Enemy : MonoBehaviour
         {
             while (transform.position != actualDestination)
             {
-                if (hitted) continue;
                 transform.position = Vector3.MoveTowards(transform.position, actualDestination, actualPatrolSpeed * Time.deltaTime);
                 yield return null;
             }

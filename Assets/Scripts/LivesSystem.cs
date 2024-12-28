@@ -9,6 +9,8 @@ public class LivesSystem : MonoBehaviour
 
     [SerializeField] private float lives;
 
+    public float Lives { get => lives; set => lives = value; }
+
     public void TakeDamage(float damageAmount)
     {
         lives -= damageAmount;
