@@ -9,6 +9,7 @@ TagManager:
   - Door
   - Key
   - Traps
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

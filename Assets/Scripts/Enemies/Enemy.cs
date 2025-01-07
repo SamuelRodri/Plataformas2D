@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(LivesSystem), typeof(Animator))]
 public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] protected Transform[] wayPoints;
+    [SerializeField] private Transform[] wayPoints;
     [SerializeField] protected float patrolSpeed;
     [SerializeField] protected float attackDamage;
     [SerializeField] protected float repulseForce;
@@ -18,18 +18,21 @@ public abstract class Enemy : MonoBehaviour
     protected Animator animator;
     protected Rigidbody2D rb;
 
+    public Transform[] WayPoints { get => wayPoints; set => wayPoints = value; }
+
     private void Awake()
     {
         livesSystem = GetComponent<LivesSystem>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        actualDestination = wayPoints[actualIndex].position;
-        actualPatrolSpeed = patrolSpeed;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        actualDestination = wayPoints[actualIndex].position;
+        actualPatrolSpeed = patrolSpeed;
+
         LookAtDestination();
         StartCoroutine(Patrol());
     }
