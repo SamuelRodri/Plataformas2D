@@ -37,23 +37,11 @@ public abstract class Enemy : MonoBehaviour
         StartCoroutine(Patrol());
     }
 
-    protected IEnumerator Patrol()
-    {
-        while (true)
-        {
-            while (transform.position != actualDestination)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, actualDestination, actualPatrolSpeed * Time.deltaTime);
-                yield return null;
-            }
-
-            SetNewDestination();
-        }
-    }
+    protected abstract IEnumerator Patrol();
 
     protected void LookAtDestination()
     {
-        if (actualDestination.x > transform.position.x)
+        if (actualDestination.x >= transform.position.x)
         {
             transform.localScale = Vector3.one;
         }
@@ -66,7 +54,7 @@ public abstract class Enemy : MonoBehaviour
     protected void TakeDamage(float damageAmount)
         => livesSystem.TakeDamage(damageAmount);
 
-    private void SetNewDestination()
+    protected void SetNewDestination()
     {
         actualIndex = ++actualIndex % wayPoints.Length;
         actualDestination = wayPoints[actualIndex].position;
@@ -75,11 +63,7 @@ public abstract class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("DetectionPlayer"))
-        {
-            Debug.Log("Jugador detectado!");
-        }
-        else if (collision.gameObject.CompareTag("PlayerHitBox"))
+        if (collision.gameObject.CompareTag("PlayerHitBox"))
         {
             Attack(collision.GetComponent<Player>());
         }

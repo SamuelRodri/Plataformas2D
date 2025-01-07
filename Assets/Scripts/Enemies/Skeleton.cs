@@ -32,4 +32,19 @@ public class Skeleton : Enemy
         animator.SetTrigger("die");
         actualPatrolSpeed = 0;
     }
+
+    protected override IEnumerator Patrol()
+    {
+        while (true)
+        {
+            while (transform.position != actualDestination)
+            {
+                Vector2 newPosition = Vector3.MoveTowards(transform.position, actualDestination, actualPatrolSpeed * Time.deltaTime);
+                transform.position = new Vector3(newPosition.x, transform.position.y);
+                yield return null;
+            }
+
+            SetNewDestination();
+        }
+    }
 }

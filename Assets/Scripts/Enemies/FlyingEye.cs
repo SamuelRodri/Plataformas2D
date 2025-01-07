@@ -12,11 +12,56 @@ public class FlyingEye : Enemy
 
     protected override void Attack(Player player)
     {
+        Debug.Log("ataca");
+        //animator.SetTrigger("attack");
         player.TakeDamage(attackDamage);
     }
 
     protected override void Die()
     {
         animator.SetTrigger("die");
+    }
+
+    protected override IEnumerator Patrol()
+    {
+        while (true)
+        {
+            while (transform.position != actualDestination)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, actualDestination, actualPatrolSpeed * Time.deltaTime);
+                yield return null;
+            }
+
+            SetNewDestination();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DetectionPlayer"))
+        {
+            actualDestination = collision.transform.position;
+        }
+        else if (collision.gameObject.CompareTag("PlayerHitBox"))
+        {
+            Attack(collision.GetComponent<Player>());
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DetectionPlayer"))
+        {
+            actualDestination = collision.transform.position;
+            LookAtDestination();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DetectionPlayer"))
+        {
+            SetNewDestination();
+        }
     }
 }
