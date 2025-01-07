@@ -6,8 +6,19 @@ public class FlyingEye : Enemy
 {
     public override void Hit(float damageAmount, Vector2 direction)
     {
+        rb.isKinematic = false;
+        rb.AddForce(direction * repulseForce, ForceMode2D.Impulse);
         TakeDamage(damageAmount);
-        animator.SetTrigger("hit");
+        rb.isKinematic = true;
+
+        if (livesSystem.Lives > 0)
+        {
+            animator.SetTrigger("hit");
+        }
+        else
+        {
+            Die();
+        }
     }
 
     protected override void Attack(Player player)

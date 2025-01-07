@@ -52963,8 +52963,8 @@ MonoBehaviour:
   - {fileID: 869453691340726144, guid: acae9d4ceab9fc042af28cb6f7a42445, type: 3}
   - {fileID: 712692275595698145, guid: 44bef08739b228a488e46db9221fba8e, type: 3}
   enemiesByLevel:
-  - 2
   - 1
+  - 0
   enemiesSpawnPoints:
   - {fileID: 1622544007}
   - {fileID: 223811011}
@@ -53662,7 +53662,7 @@ MonoBehaviour:
   yLimit: -12
   attackPoint: {fileID: 719492143}
   attackRadius: 0.8
-  attackAmount: 20
+  attackAmount: 25
   damageable:
     serializedVersion: 2
     m_Bits: 64

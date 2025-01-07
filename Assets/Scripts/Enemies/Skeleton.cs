@@ -17,6 +17,7 @@ public class Skeleton : Enemy
         }
         else
         {
+            actualPatrolSpeed = 0;
             Die();
         }
     }
