@@ -12,9 +12,8 @@ public class FlyingEye : Enemy
 
     protected override void Attack(Player player)
     {
-        Debug.Log("ataca");
-        //animator.SetTrigger("attack");
         player.TakeDamage(attackDamage);
+        Destroy(gameObject);
     }
 
     protected override void Die()

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(LivesSystem))]
 public class Player : MonoBehaviour
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
 
     [Header("Others")]
     [SerializeField] private float trapsDamage;
+    [SerializeField] private Slider livebar;
 
     private Animator anim;
     private Rigidbody2D rb;
@@ -81,6 +83,8 @@ public class Player : MonoBehaviour
         {
             positionBeforeFall = transform.position;
         }
+
+        livebar.value = liveSystem.Lives / 100f;
     }
 
     private void DieForFall()
@@ -210,7 +214,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
-        //rb.AddForce(-transform.right * repulseForce, ForceMode2D.Impulse);
+        rb.AddForce(Vector3.up * repulseForceWhenVertical / 2f, ForceMode2D.Impulse);
         liveSystem.TakeDamage(damageAmount);
         anim.SetTrigger("hit");
     }
