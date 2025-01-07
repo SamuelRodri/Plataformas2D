@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     public Action OnDie;
     public Action OnGetKey;
+    public Action OnDieByFall;
 
     [Header("Movement System")]
     [SerializeField] private Transform feet;
@@ -85,6 +86,7 @@ public class Player : MonoBehaviour
     private void DieForFall()
     {
         transform.position = positionBeforeFall;
+        OnDieByFall?.Invoke();
     }
 
     public void FallInTrap()
