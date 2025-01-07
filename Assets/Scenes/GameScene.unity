@@ -4067,6 +4067,7 @@ MonoBehaviour:
   - {fileID: 861670493}
   - {fileID: 1557371341}
   keyPrefab: {fileID: 5541497671308926059, guid: 11018a180e6340948afe3b981181d418, type: 3}
+  spawner: {fileID: 1554259778}
   uiController: {fileID: 949410859}
 --- !u!4 &589913262
 Transform:
@@ -52962,9 +52963,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 869453691340726144, guid: acae9d4ceab9fc042af28cb6f7a42445, type: 3}
   - {fileID: 712692275595698145, guid: 44bef08739b228a488e46db9221fba8e, type: 3}
-  enemiesByLevel:
-  - 1
-  - 0
+  enemiesByLevel: 0000000000000000
   enemiesSpawnPoints:
   - {fileID: 1622544007}
   - {fileID: 223811011}

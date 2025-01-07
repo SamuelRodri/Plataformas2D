@@ -6,7 +6,11 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class GameController : MonoBehaviour
 {
+    private static int rounds = 1;
     private static int score = 0;
+    private static int nextLevelEnemyIndex = 0;
+    private static int nextLevelEnemy = 0;
+    private static int[] enemiesByLevel;
 
     [SerializeField] private Player player;
 
@@ -19,11 +23,14 @@ public class GameController : MonoBehaviour
     [SerializeField] private Key keyPrefab;
 
     [Header("Others")]
+    [SerializeField] private EnemiesSpawner spawner;
     [SerializeField] private UIController uiController;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (rounds > 1) spawner.EnemiesByLevel = enemiesByLevel;
+
         uiController.UpdateScore(score);
 
         Transform actualDoorPoint = doorPoints[Random.Range(0, doorPoints.Length)];
@@ -40,7 +47,15 @@ public class GameController : MonoBehaviour
 
     private void RestartLevel()
     {
+        if ((rounds + 1) % 2 == 0)
+        {
+            enemiesByLevel = spawner.EnemiesByLevel;
+            nextLevelEnemyIndex = Random.Range(0, enemiesByLevel.Length);
+            nextLevelEnemy = ++enemiesByLevel[nextLevelEnemyIndex];
+        }
+
         score += 100;
+        rounds++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -48,4 +63,14 @@ public class GameController : MonoBehaviour
     {
         uiController.ShowGameOver(score);
     }
+
+#if DEBUG
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            RestartLevel();
+        }
+    }
+#endif
 }

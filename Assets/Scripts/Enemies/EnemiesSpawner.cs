@@ -8,8 +8,10 @@ using UnityEngine;
 public class EnemiesSpawner : MonoBehaviour
 {
     [SerializeField] private Enemy[] enemies;
-    [SerializeField] private float[] enemiesByLevel;
+    [SerializeField] private int[] enemiesByLevel;
     [SerializeField] private GameObject[] enemiesSpawnPoints;
+
+    public int[] EnemiesByLevel { get => enemiesByLevel; set => enemiesByLevel = value; }
 
     // Start is called before the first frame update
     void Start()
