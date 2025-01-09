@@ -9,18 +9,46 @@ public class Door : MonoBehaviour
 
     private Animator animator;
 
+    [SerializeField] private GameObject openText;
+    [SerializeField] private GameObject keyText;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    public void Open()
+    public void Open(bool hasKey)
     {
+        if (!hasKey)
+        {
+            keyText.SetActive(true);
+            return;
+        }
+
+        openText.SetActive(false);
+        keyText.SetActive(false);
         animator.SetTrigger("open");
     }
 
     public void OpenAnimationEnded()
     {
         OnDoorOpen?.Invoke();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerHitBox"))
+        {
+            openText.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerHitBox"))
+        {
+            openText.SetActive(false);
+            keyText.SetActive(false);
+        }
     }
 }

@@ -70,9 +70,9 @@ public class Player : MonoBehaviour
 
         Jump();
 
-        if (Input.GetKeyDown(KeyCode.E) && nearDoor && hasKey)
+        if (Input.GetKeyDown(KeyCode.E) && nearDoor)
         {
-            door.Open();
+            door.Open(hasKey);
         }
 
         Fall();
