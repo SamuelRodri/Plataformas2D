@@ -11,6 +11,7 @@ public class Door : MonoBehaviour
 
     [SerializeField] private GameObject openText;
     [SerializeField] private GameObject keyText;
+    [SerializeField] private AudioClip openSound;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class Door : MonoBehaviour
         openText.SetActive(false);
         keyText.SetActive(false);
         animator.SetTrigger("open");
+        GetComponent<AudioSource>().PlayOneShot(openSound);
     }
 
     public void OpenAnimationEnded()

@@ -31,13 +31,21 @@ public class Player : MonoBehaviour
     [SerializeField] private float trapsDamage;
     [SerializeField] private Slider livebar;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip swordSound;
+    [SerializeField] private AudioClip playerHitSound;
+    [SerializeField] private AudioClip playerJumpSound;
+    [SerializeField] private AudioClip playerDeadSound;
+
+    private AudioSource audioSource;
+
     private Animator anim;
     private Rigidbody2D rb;
     private LivesSystem liveSystem;
     private float inputH;
     private float currentY;
 
-    private bool hasKey = false;
+    [SerializeField] private bool hasKey = false;
     private bool nearDoor = false;
     private Door door;
 
@@ -52,6 +60,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         liveSystem = GetComponent<LivesSystem>();
         liveSystem.OnDie += Die;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -145,6 +154,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void PlaySwordSound()
+    {
+        audioSource.PlayOneShot(swordSound);
+    }
+
+    private void PlayHitSound()
+        => audioSource.PlayOneShot(playerHitSound);
+
     private void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !hasJump)
@@ -152,6 +169,7 @@ public class Player : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             anim.SetTrigger("jump");
             hasJump = true;
+            audioSource.PlayOneShot(playerJumpSound);
         }
     }
 
@@ -188,7 +206,7 @@ public class Player : MonoBehaviour
         hasDie = true;
         rb.velocity = Vector3.zero;
         anim.SetTrigger("die");
-
+        audioSource.PlayOneShot(playerDeadSound);
         if (rb != null) rb.simulated = false;
 
         foreach (var script in GetComponents<MonoBehaviour>())
