@@ -241,4 +241,7 @@ public class Player : MonoBehaviour
             nearDoor = false;
         }
     }
+
+    public void GetHealthPowerUp(float health)
+        => liveSystem.AddHealth(health);
 }

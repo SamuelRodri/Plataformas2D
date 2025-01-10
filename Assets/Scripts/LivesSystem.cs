@@ -9,7 +9,14 @@ public class LivesSystem : MonoBehaviour
 
     [SerializeField] private float lives;
 
+    private float maxLives;
+
     public float Lives { get => lives; set => lives = value; }
+
+    private void Awake()
+    {
+        maxLives = lives;
+    }
 
     public void TakeDamage(float damageAmount)
     {
@@ -20,4 +27,7 @@ public class LivesSystem : MonoBehaviour
             OnDie?.Invoke();
         }
     }
+
+    public void AddHealth(float healthAmount)
+        => lives = Mathf.Clamp(lives + healthAmount, 0, maxLives);
 }
