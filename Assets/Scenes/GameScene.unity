@@ -54438,7 +54438,7 @@ MonoBehaviour:
   swordSound: {fileID: 8300000, guid: 1f85d2ac661e2254c82e7d802c6f58e1, type: 3}
   playerHitSound: {fileID: 8300000, guid: 058032c16cb68e440894d295a80e71e8, type: 3}
   playerJumpSound: {fileID: 8300000, guid: 513321605fdb7a74db0fc61b2fa23827, type: 3}
-  playerDeadSound: {fileID: 8300000, guid: 4029035361ce72f4eb336bd41536bcaf, type: 3}
+  playerDeadSound: {fileID: 8300000, guid: 22d0aa04333940e4e8ca056b52ce1c2f, type: 3}
   hasKey: 0
 --- !u!114 &1705028540
 MonoBehaviour:
@@ -54464,7 +54464,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

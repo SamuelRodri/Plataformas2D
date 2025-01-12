@@ -29,6 +29,7 @@ public class FlyingEye : Enemy
 
     protected override void Die()
     {
+        audioSource.PlayOneShot(hitSound);
         animator.SetTrigger("die");
     }
 

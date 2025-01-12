@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LivesSystem), typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] private Transform[] wayPoints;
     [SerializeField] protected float patrolSpeed;
     [SerializeField] protected float attackDamage;
     [SerializeField] protected float repulseForce;
+
+    [Header("Audio")]
+    [SerializeField] protected AudioClip hitSound;
+    [SerializeField] protected AudioClip deadSound;
 
     protected Vector3 actualDestination;
     protected int actualIndex = 0;
@@ -17,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     protected LivesSystem livesSystem;
     protected Animator animator;
     protected Rigidbody2D rb;
+    protected AudioSource audioSource;
 
     public Transform[] WayPoints { get => wayPoints; set => wayPoints = value; }
 
@@ -25,6 +31,7 @@ public abstract class Enemy : MonoBehaviour
         livesSystem = GetComponent<LivesSystem>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -53,6 +60,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected void TakeDamage(float damageAmount)
         => livesSystem.TakeDamage(damageAmount);
+    
 
     protected void SetNewDestination()
     {

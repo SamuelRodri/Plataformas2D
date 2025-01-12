@@ -160,7 +160,10 @@ public class Player : MonoBehaviour
     }
 
     private void PlayHitSound()
-        => audioSource.PlayOneShot(playerHitSound);
+    {
+        if (liveSystem.Lives > 0)
+            audioSource.PlayOneShot(playerHitSound);
+    }
 
     private void Jump()
     {

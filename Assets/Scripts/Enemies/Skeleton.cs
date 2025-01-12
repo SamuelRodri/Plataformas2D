@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Skeleton : Enemy
 {
+    [SerializeField] private AudioClip attackSound;
+
     public override void Hit(float damageAmount, Vector2 direction)
     {
         rb.isKinematic = false;
@@ -24,12 +26,14 @@ public class Skeleton : Enemy
 
     protected override void Attack(Player player)
     {
+        audioSource.PlayOneShot(attackSound);
         animator.SetTrigger("attack");
         player.TakeDamage(attackDamage);
     }
 
     protected override void Die()
     {
+        audioSource.PlayOneShot(deadSound);
         animator.SetTrigger("die");
         actualPatrolSpeed = 0;
     }
@@ -47,5 +51,10 @@ public class Skeleton : Enemy
 
             SetNewDestination();
         }
+    }
+
+    public void PlayHitSound()
+    {
+        audioSource.PlayOneShot(hitSound);
     }
 }
