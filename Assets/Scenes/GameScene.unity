@@ -53508,7 +53508,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 869453691340726144, guid: acae9d4ceab9fc042af28cb6f7a42445, type: 3}
   - {fileID: 712692275595698145, guid: 44bef08739b228a488e46db9221fba8e, type: 3}
-  enemiesByLevel: 0000000000000000
+  enemiesByLevel: 0100000001000000
   enemiesSpawnPoints:
   - {fileID: 1622544007}
   - {fileID: 223811011}
@@ -54439,6 +54439,7 @@ MonoBehaviour:
   playerHitSound: {fileID: 8300000, guid: 058032c16cb68e440894d295a80e71e8, type: 3}
   playerJumpSound: {fileID: 8300000, guid: 513321605fdb7a74db0fc61b2fa23827, type: 3}
   playerDeadSound: {fileID: 8300000, guid: 22d0aa04333940e4e8ca056b52ce1c2f, type: 3}
+  powerUpSound: {fileID: 8300000, guid: a724cac5b59210e4aa02ca39bdfcc30e, type: 3}
   hasKey: 0
 --- !u!114 &1705028540
 MonoBehaviour:

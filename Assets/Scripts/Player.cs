@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip playerHitSound;
     [SerializeField] private AudioClip playerJumpSound;
     [SerializeField] private AudioClip playerDeadSound;
+    [SerializeField] private AudioClip powerUpSound;
 
     private AudioSource audioSource;
 
@@ -249,6 +250,7 @@ public class Player : MonoBehaviour
         }
         else if (collision.CompareTag("Key"))
         {
+            audioSource.PlayOneShot(powerUpSound);
             Destroy(collision.gameObject);
             hasKey = true;
             OnGetKey?.Invoke();
@@ -264,5 +266,8 @@ public class Player : MonoBehaviour
     }
 
     public void GetHealthPowerUp(float health)
-        => liveSystem.AddHealth(health);
+    {
+        audioSource.PlayOneShot(powerUpSound);
+        liveSystem.AddHealth(health);
+    }
 }
