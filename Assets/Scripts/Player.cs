@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
 
     private Vector2 positionBeforeFall;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -269,5 +269,15 @@ public class Player : MonoBehaviour
     {
         audioSource.PlayOneShot(powerUpSound);
         liveSystem.AddHealth(health);
+    }
+
+    public void SetLives(float lives)
+    {
+        liveSystem.Lives = lives;
+    }
+
+    public float GetLives()
+    {
+        return liveSystem.Lives;
     }
 }

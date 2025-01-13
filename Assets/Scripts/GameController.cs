@@ -6,6 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class GameController : MonoBehaviour
 {
+    private static float playerHealth;
     private static int rounds = 1;
     private static int score = 0;
     private static int nextLevelEnemyIndex = 0;
@@ -29,6 +30,10 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (rounds == 1) playerHealth = player.GetLives();
+
+        player.SetLives(Mathf.Min(playerHealth, player.GetLives()));
+
         if (rounds > 1) spawner.EnemiesByLevel = enemiesByLevel;
 
         uiController.UpdateScore(score);
@@ -56,6 +61,7 @@ public class GameController : MonoBehaviour
 
         score += 100;
         rounds++;
+        playerHealth = player.GetLives();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
