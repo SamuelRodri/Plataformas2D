@@ -11,7 +11,14 @@ public class EnemiesSpawner : MonoBehaviour
     [SerializeField] private int[] enemiesByLevel;
     [SerializeField] private GameObject[] enemiesSpawnPoints;
 
+    private static int[] originalEnemiesByLevel;
+
     public int[] EnemiesByLevel { get => enemiesByLevel; set => enemiesByLevel = value; }
+
+    public void Initialize()
+    {
+        originalEnemiesByLevel = (int[])enemiesByLevel.Clone();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +36,8 @@ public class EnemiesSpawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RestartSpawner()
     {
-
+        enemiesByLevel = originalEnemiesByLevel;
     }
 }

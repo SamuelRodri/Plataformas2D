@@ -60,7 +60,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected void TakeDamage(float damageAmount)
         => livesSystem.TakeDamage(damageAmount);
-    
+
 
     protected void SetNewDestination()
     {
@@ -73,7 +73,8 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerHitBox"))
         {
-            Attack(collision.GetComponent<Player>());
+            if (livesSystem.Lives > 0)
+                Attack(collision.GetComponent<Player>());
         }
     }
 

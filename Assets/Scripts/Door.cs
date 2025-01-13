@@ -26,13 +26,18 @@ public class Door : MonoBehaviour
             return;
         }
 
+        Invoke("DoorOpened", openSound.length);
+        GetComponent<AudioSource>().PlayOneShot(openSound);
         openText.SetActive(false);
         keyText.SetActive(false);
         animator.SetTrigger("open");
-        GetComponent<AudioSource>().PlayOneShot(openSound);
     }
 
     public void OpenAnimationEnded()
+    {
+    }
+
+    private void DoorOpened()
     {
         OnDoorOpen?.Invoke();
     }

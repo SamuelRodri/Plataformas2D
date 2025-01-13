@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     private static int nextLevelEnemyIndex = 0;
     private static int nextLevelEnemy = 0;
     private static int[] enemiesByLevel;
+    private bool inGameOver;
 
     [SerializeField] private Player player;
 
@@ -30,7 +31,11 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (rounds == 1) playerHealth = player.GetLives();
+        if (rounds == 1)
+        {
+            playerHealth = player.GetLives();
+            spawner.Initialize();
+        }
 
         player.SetLives(Mathf.Min(playerHealth, player.GetLives()));
 
@@ -68,15 +73,35 @@ public class GameController : MonoBehaviour
     private void GameOver()
     {
         uiController.ShowGameOver(score);
+        StartCoroutine(WaitForGameOverRestart());
     }
 
-#if DEBUG
+    private IEnumerator WaitForGameOverRestart()
+    {
+        yield return new WaitForSeconds(1.25f);
+        inGameOver = true;
+    }
     private void Update()
     {
+#if DEBUG
         if (Input.GetKeyDown(KeyCode.N))
         {
             RestartLevel();
         }
-    }
 #endif
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            score = 0;
+            rounds = 1;
+            playerHealth = 0;
+            spawner.RestartSpawner();
+            SceneManager.LoadScene("GameScene");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MenuScene");
+        }
+    }
 }
