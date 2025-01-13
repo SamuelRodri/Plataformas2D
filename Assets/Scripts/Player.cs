@@ -236,6 +236,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
+        CameraShake.Shake(0.45f, 10f);
         rb.AddForce(Vector3.up * repulseForceWhenVertical / 2f, ForceMode2D.Impulse);
         liveSystem.TakeDamage(damageAmount);
         anim.SetTrigger("hit");

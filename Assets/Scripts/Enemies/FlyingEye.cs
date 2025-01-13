@@ -24,6 +24,7 @@ public class FlyingEye : Enemy
     protected override void Attack(Player player)
     {
         player.TakeDamage(attackDamage);
+        audioSource.PlayOneShot(hitSound);
         Destroy(gameObject);
     }
 

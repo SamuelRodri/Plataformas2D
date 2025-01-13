@@ -90,7 +90,7 @@ public class GameController : MonoBehaviour
         }
 #endif
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && inGameOver)
         {
             score = 0;
             rounds = 1;
@@ -99,7 +99,7 @@ public class GameController : MonoBehaviour
             SceneManager.LoadScene("GameScene");
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && inGameOver)
         {
             SceneManager.LoadScene("MenuScene");
         }
