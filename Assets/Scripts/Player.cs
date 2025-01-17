@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,6 +56,9 @@ public class Player : MonoBehaviour
 
     private Vector2 positionBeforeFall;
 
+    private bool pause = false;
+    public bool Pause { get => pause; set => pause = value; }
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -67,6 +71,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (pause) return;
         if (hasDie) return;
 
         if (transform.position.y <= yLimit)

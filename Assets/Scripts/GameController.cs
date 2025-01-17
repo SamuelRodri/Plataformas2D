@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     private static int nextLevelEnemy = 0;
     private static int[] enemiesByLevel;
     private bool inGameOver;
+    private bool isGamePause;
 
     [SerializeField] private Player player;
 
@@ -27,6 +28,9 @@ public class GameController : MonoBehaviour
     [Header("Others")]
     [SerializeField] private EnemiesSpawner spawner;
     [SerializeField] private UIController uiController;
+
+    [SerializeField] private GameObject GameUI;
+    [SerializeField] private GameObject PauseUI;
 
     // Start is called before the first frame update
     void Start()
@@ -72,6 +76,7 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
+        inGameOver = true;
         uiController.ShowGameOver(score);
         StartCoroutine(WaitForGameOverRestart());
     }
@@ -79,29 +84,47 @@ public class GameController : MonoBehaviour
     private IEnumerator WaitForGameOverRestart()
     {
         yield return new WaitForSeconds(1.25f);
-        inGameOver = true;
     }
+
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape) && !inGameOver)
+        {
+            Time.timeScale = 0f;
+            GameUI.SetActive(false);
+            PauseUI.SetActive(true);
+            isGamePause = true;
+            player.Pause = true;
+        }
 #if DEBUG
         if (Input.GetKeyDown(KeyCode.N))
         {
             RestartLevel();
         }
 #endif
+    }
 
-        if (Input.GetKeyDown(KeyCode.R) && inGameOver)
-        {
-            score = 0;
-            rounds = 1;
-            playerHealth = 0;
-            spawner.RestartSpawner();
-            SceneManager.LoadScene("GameScene");
-        }
+    public void ContinueGame()
+    {
+        Time.timeScale = 1;
+        PauseUI.SetActive(false);
+        GameUI.SetActive(true);
+        isGamePause = false;
+        player.Pause = false;
+    }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && inGameOver)
-        {
-            SceneManager.LoadScene("MenuScene");
-        }
+    public void ExitGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MenuScene");
+    }
+
+    public void RestartGame()
+    {
+        score = 0;
+        rounds = 1;
+        playerHealth = 0;
+        spawner.RestartSpawner();
+        SceneManager.LoadScene("GameScene");
     }
 }
